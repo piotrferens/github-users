@@ -6,7 +6,7 @@ export default class Repos extends Component {
       <a
         href={repo.svn_url}
         target="blank"
-        style={{ textDecoration: "none" }}
+        style={{ textDecoration: "none", margin: 5 }}
         alt=""
         key={repo.id}
       >

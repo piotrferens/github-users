@@ -9,7 +9,8 @@ class App extends Component {
     searchText: "",
     user: null,
     repos: [],
-    followers: []
+    followers: [],
+    following: []
   };
 
   onSearch = event => {
@@ -17,7 +18,13 @@ class App extends Component {
   };
 
   fetchUser = username => {
-    this.setState({ searchText: "", user: {}, repos: [], followers: [] });
+    this.setState({
+      searchText: "",
+      user: {},
+      repos: [],
+      followers: [],
+      following: []
+    });
     fetch(`https://api.github.com/users/${username}`)
       .then(response => response.json())
       .then(response => this.setState({ user: response }));
@@ -33,6 +40,12 @@ class App extends Component {
     fetch(`https://api.github.com/users/${this.state.user.login}/followers`)
       .then(response => response.json())
       .then(response => this.setState({ followers: response }));
+  };
+
+  fetchFollowing = () => {
+    fetch(`https://api.github.com/users/${this.state.user.login}/following`)
+      .then(response => response.json())
+      .then(response => this.setState({ following: response }));
   };
 
   onKeyDown = event => {
@@ -59,6 +72,8 @@ class App extends Component {
             fetchFollowers={this.fetchFollowers}
             followers={this.state.followers}
             fetchUser={this.fetchUser}
+            fetchFollowing={this.fetchFollowing}
+            following={this.state.following}
           />
         ) : null}
       </div>

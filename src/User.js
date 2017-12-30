@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Repos from "./Repos";
 import Followers from "./Followers";
 import UserBar from "./UserBar";
+import Following from "./Following";
 
 export default class User extends Component {
   render() {
@@ -69,8 +70,22 @@ export default class User extends Component {
               flex: 1
             }}
           >
-            <a>{this.props.user.following}</a>
-            <a> FOLLOWING</a>
+            <a onClick={this.props.fetchFollowing}>
+              {this.props.user.following}
+            </a>
+            <a onClick={this.props.fetchFollowing}> FOLLOWING</a>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "baseline"
+              }}
+            >
+              <Following
+                fetchUser={this.props.fetchUser}
+                following={this.props.following}
+              />
+            </div>
           </div>
         </div>
       </div>

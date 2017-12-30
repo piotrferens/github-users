@@ -34,7 +34,7 @@ export default class UserBar extends Component {
             style={{ textDecoration: "none" }}
           >
             {this.props.user.login}
-            {this.props.user.name ? `(${this.props.user.name})` : null}
+            {this.props.user.name ? ` (${this.props.user.name})` : null}
           </a>
 
           <span>{this.props.user.bio}</span>
