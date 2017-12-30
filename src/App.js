@@ -18,9 +18,10 @@ class App extends Component {
   };
 
   fetchUser = username => {
+    if (!username) return;
+
     this.setState({
       searchText: "",
-      user: {},
       repos: [],
       followers: [],
       following: []
