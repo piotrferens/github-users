@@ -8,9 +8,9 @@ class App extends Component {
   state = {
     searchText: "",
     user: null,
-    repos: [],
-    followers: [],
-    following: [],
+    repos: { isVisible: false, data: [] },
+    followers: { isVisible: false, data: [] },
+    following: { isVisible: false, data: [] },
     error: ""
   };
 
@@ -23,9 +23,9 @@ class App extends Component {
 
     this.setState({
       searchText: "",
-      repos: [],
-      followers: [],
-      following: []
+      repos: { isVisible: false, data: [] },
+      followers: { isVisible: false, data: [] },
+      following: { isVisible: false, data: [] }
     });
     fetch(`https://api.github.com/users/${username}`)
       .then(response => {
@@ -39,21 +39,54 @@ class App extends Component {
   };
 
   fetchRepos = () => {
+    if (this.state.repos.data.length > 0) {
+      this.setState({
+        repos: { ...this.state.repos, isVisible: !this.state.repos.isVisible }
+      });
+      return;
+    }
     fetch(`https://api.github.com/users/${this.state.user.login}/repos`)
       .then(response => response.json())
-      .then(response => this.setState({ repos: response }));
+      .then(response =>
+        this.setState({ repos: { isVisible: true, data: response } })
+      );
   };
 
   fetchFollowers = () => {
+    if (this.state.following.data.length > 0) {
+      this.setState({
+        followers: {
+          ...this.state.followers,
+          isVisible: !this.state.followers.isVisible
+        }
+      });
+      return;
+    }
+
     fetch(`https://api.github.com/users/${this.state.user.login}/followers`)
       .then(response => response.json())
-      .then(response => this.setState({ followers: response }));
+      .then(response =>
+        this.setState({ followers: { isVisible: true, data: response } })
+      );
   };
 
   fetchFollowing = () => {
+    if (this.state.following.data.length > 0) {
+      this.setState({
+        following: {
+          ...this.state.following,
+          isVisible: !this.state.following.isVisible
+        }
+      });
+      return;
+    }
     fetch(`https://api.github.com/users/${this.state.user.login}/following`)
       .then(response => response.json())
-      .then(response => this.setState({ following: response }));
+      .then(response =>
+        this.setState({
+          following: { isVisible: true, data: response }
+        })
+      );
   };
 
   onKeyDown = event => {

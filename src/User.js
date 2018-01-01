@@ -35,7 +35,9 @@ export default class User extends Component {
               {this.props.user.public_repos}
             </span>
             <span onClick={this.props.fetchRepos}> PUBLIC REPOS</span>
-            <Repos repos={this.props.repos} />
+            {this.props.repos.isVisible ? (
+              <Repos repos={this.props.repos} />
+            ) : null}
           </div>
           <div
             style={{
@@ -56,10 +58,12 @@ export default class User extends Component {
                 alignItems: "baseline"
               }}
             >
-              <Followers
-                fetchUser={this.props.fetchUser}
-                followers={this.props.followers}
-              />
+              {this.props.followers.isVisible ? (
+                <Followers
+                  fetchUser={this.props.fetchUser}
+                  followers={this.props.followers}
+                />
+              ) : null}
             </div>
           </div>
           <div
@@ -81,10 +85,12 @@ export default class User extends Component {
                 alignItems: "baseline"
               }}
             >
-              <Following
-                fetchUser={this.props.fetchUser}
-                following={this.props.following}
-              />
+              {this.props.following.isVisible ? (
+                <Following
+                  fetchUser={this.props.fetchUser}
+                  following={this.props.following}
+                />
+              ) : null}
             </div>
           </div>
         </div>

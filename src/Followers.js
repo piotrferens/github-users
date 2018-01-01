@@ -2,7 +2,7 @@ import React from "react";
 
 export default class Followers extends React.Component {
   render() {
-    return this.props.followers.map(follower => (
+    return this.props.followers.data.map(follower => (
       <div
         onClick={() => this.props.fetchUser(follower.login)}
         key={follower.id}

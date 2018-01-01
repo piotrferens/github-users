@@ -30,7 +30,7 @@ export default class UserBar extends Component {
         >
           <a
             href={this.props.user.html_url}
-            target="blank"
+            target="_blank"
             style={{ textDecoration: "none" }}
           >
             {this.props.user.login}
