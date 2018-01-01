@@ -53,7 +53,7 @@ class App extends Component {
   };
 
   fetchFollowers = () => {
-    if (this.state.following.data.length > 0) {
+    if (this.state.followers.data.length > 0) {
       this.setState({
         followers: {
           ...this.state.followers,
@@ -62,7 +62,6 @@ class App extends Component {
       });
       return;
     }
-
     fetch(`https://api.github.com/users/${this.state.user.login}/followers`)
       .then(response => response.json())
       .then(response =>
