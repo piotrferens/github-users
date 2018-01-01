@@ -10,7 +10,8 @@ class App extends Component {
     user: null,
     repos: [],
     followers: [],
-    following: []
+    following: [],
+    error: ""
   };
 
   onSearch = event => {
@@ -27,8 +28,14 @@ class App extends Component {
       following: []
     });
     fetch(`https://api.github.com/users/${username}`)
-      .then(response => response.json())
-      .then(response => this.setState({ user: response }));
+      .then(response => {
+        if (response.status === 404) {
+          throw new Error("This user does not exist :(");
+        }
+        return response.json();
+      })
+      .then(response => this.setState({ user: response, error: "" }))
+      .catch(error => this.setState({ error: error.message }));
   };
 
   fetchRepos = () => {
@@ -64,6 +71,7 @@ class App extends Component {
           onKeyDown={this.onKeyDown}
           onSearch={this.onSearch}
           searchText={this.state.searchText}
+          error={this.state.error}
         />
         {this.state.user !== null ? (
           <User

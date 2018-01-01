@@ -15,6 +15,7 @@ export default class SearchUser extends React.Component {
             Search
           </button>
         </div>
+        <h2> {this.props.error} </h2>
       </div>
     );
   }
